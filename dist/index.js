@@ -18,8 +18,7 @@ const execa_1 = __importDefault(require("execa"));
 exports.version = 1;
 function build({ workPath, files, entrypoint, meta = {}, config = {}, }) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("installing haskell stack tool");
-        yield execa_1.default.command("./build.sh", { shell: true });
+        yield execa_1.default.command("src/build.sh", { shell: true });
         const lambda = new build_utils_1.Lambda(Object.assign(Object.assign({ files }, config), { handler: entrypoint, runtime: "python3.9" }));
         return {
             output: lambda,
