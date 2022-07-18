@@ -16,7 +16,7 @@ exports.build = exports.version = void 0;
 const build_utils_1 = require("@vercel/build-utils");
 const execa_1 = __importDefault(require("execa"));
 const path_1 = __importDefault(require("path"));
-exports.version = 1;
+exports.version = 2;
 function build({ workPath, files, entrypoint, meta = {}, config = {}, }) {
     return __awaiter(this, void 0, void 0, function* () {
         yield execa_1.default.command(path_1.default.resolve(__dirname, "../src/build.sh"), { shell: true });
