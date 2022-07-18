@@ -27,8 +27,7 @@ export async function build({
     shell: true,
   });
   subprocess.stdout?.pipe(process.stdout);
-  const { stdout } = await subprocess;
-  console.log(stdout);
+  await subprocess;
 
   const output = new Lambda({
     files,

@@ -28,8 +28,7 @@ function build({ workPath, files, entrypoint, meta = {}, config = {}, }) {
             shell: true,
         });
         (_a = subprocess.stdout) === null || _a === void 0 ? void 0 : _a.pipe(process.stdout);
-        const { stdout } = yield subprocess;
-        console.log(stdout);
+        yield subprocess;
         const output = new build_utils_1.Lambda(Object.assign(Object.assign({ files }, config), { handler: entrypoint, runtime: "python3.9" }));
         return {
             output,
