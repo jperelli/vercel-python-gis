@@ -4,7 +4,7 @@ import {
   shouldServe,
   download,
 } from "@vercel/build-utils";
-import execa from "execa";
+import { execa } from "execa";
 import path from "path";
 import fs from "fs-extra";
 
@@ -23,9 +23,12 @@ export async function build({
 }: BuildOptions) {
   await download(files, workPath, meta);
 
-  await execa.command(path.resolve(__dirname, "../src/build.sh"), {
+  const subprocess = execa(path.resolve(__dirname, "../src/build.sh"), {
     shell: true,
   });
+  subprocess.stdout?.pipe(process.stdout);
+  const { stdout } = await subprocess;
+  console.log(stdout);
 
   const output = new Lambda({
     files,
