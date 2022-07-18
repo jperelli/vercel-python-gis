@@ -1,6 +1,6 @@
 yum repolist
 cat /etc/os-release
-sudo amazon-linux-extras install epel -y
+amazon-linux-extras install epel -y
 yum install -y geos proj gdal
 
 # Install GEOS
