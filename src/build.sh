@@ -1,5 +1,5 @@
 yum repolist
-cat /etc/lsb-release
+cat /etc/os-release
 yum install -y epel-release
 yum install -y geos proj gdal
 
