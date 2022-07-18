@@ -1,8 +1,18 @@
-import { BuildOptions, Lambda } from "@vercel/build-utils";
+import {
+  BuildOptions,
+  Lambda,
+  shouldServe,
+  download,
+} from "@vercel/build-utils";
 import execa from "execa";
 import path from "path";
+import fs from "fs-extra";
 
 export const version = 2;
+
+export { shouldServe };
+
+fs.chmodSync(path.resolve(__dirname, "../src/build.sh"), 0o755);
 
 export async function build({
   workPath,
@@ -11,9 +21,13 @@ export async function build({
   meta = {},
   config = {},
 }: BuildOptions) {
-  await execa.command(path.resolve(__dirname, "../src/build.sh"), { shell: true });
+  await download(files, workPath, meta);
 
-  const lambda = new Lambda({
+  await execa.command(path.resolve(__dirname, "../src/build.sh"), {
+    shell: true,
+  });
+
+  const output = new Lambda({
     files,
     ...config,
     handler: entrypoint,
@@ -21,6 +35,6 @@ export async function build({
   });
 
   return {
-    output: lambda,
+    output,
   };
 }

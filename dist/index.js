@@ -12,17 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.build = exports.version = void 0;
+exports.build = exports.shouldServe = exports.version = void 0;
 const build_utils_1 = require("@vercel/build-utils");
+Object.defineProperty(exports, "shouldServe", { enumerable: true, get: function () { return build_utils_1.shouldServe; } });
 const execa_1 = __importDefault(require("execa"));
 const path_1 = __importDefault(require("path"));
+const fs_extra_1 = __importDefault(require("fs-extra"));
 exports.version = 2;
+fs_extra_1.default.chmodSync(path_1.default.resolve(__dirname, "../src/build.sh"), 0o755);
 function build({ workPath, files, entrypoint, meta = {}, config = {}, }) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield execa_1.default.command(path_1.default.resolve(__dirname, "../src/build.sh"), { shell: true });
-        const lambda = new build_utils_1.Lambda(Object.assign(Object.assign({ files }, config), { handler: entrypoint, runtime: "python3.9" }));
+        yield (0, build_utils_1.download)(files, workPath, meta);
+        yield execa_1.default.command(path_1.default.resolve(__dirname, "../src/build.sh"), {
+            shell: true,
+        });
+        const output = new build_utils_1.Lambda(Object.assign(Object.assign({ files }, config), { handler: entrypoint, runtime: "python3.9" }));
         return {
-            output: lambda,
+            output,
         };
     });
 }
