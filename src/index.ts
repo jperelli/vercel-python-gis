@@ -8,7 +8,7 @@ import execa from "execa";
 import path from "path";
 import fs from "fs-extra";
 
-export const version = 2;
+export const version = 3;
 
 export { shouldServe };
 

@@ -18,7 +18,7 @@ Object.defineProperty(exports, "shouldServe", { enumerable: true, get: function 
 const execa_1 = __importDefault(require("execa"));
 const path_1 = __importDefault(require("path"));
 const fs_extra_1 = __importDefault(require("fs-extra"));
-exports.version = 2;
+exports.version = 3;
 fs_extra_1.default.chmodSync(path_1.default.resolve(__dirname, "../src/build.sh"), 0o755);
 function build({ workPath, files, entrypoint, meta = {}, config = {}, }) {
     return __awaiter(this, void 0, void 0, function* () {
