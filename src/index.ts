@@ -1,7 +1,8 @@
 import { BuildOptions, Lambda } from "@vercel/build-utils";
 import execa from "execa";
+import path from "path";
 
-export const version = 2;
+export const version = 1;
 
 export async function build({
   workPath,
@@ -10,9 +11,9 @@ export async function build({
   meta = {},
   config = {},
 }: BuildOptions) {
-  console.log(process.cwd())
+  console.log(process.cwd(), __dirname);
 
-  await execa.command(process.cwd() + "/src/build.sh", { shell: true });
+  await execa.command(path.resolve(__dirname, "../src/build.sh"), { shell: true });
 
   const lambda = new Lambda({
     files,
