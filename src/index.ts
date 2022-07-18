@@ -1,7 +1,7 @@
 import { BuildOptions, Lambda } from "@vercel/build-utils";
 import execa from "execa";
 
-export const version = 2;
+export const version = 1;
 
 export async function build({
   workPath,
