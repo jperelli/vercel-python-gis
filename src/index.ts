@@ -10,7 +10,9 @@ export async function build({
   meta = {},
   config = {},
 }: BuildOptions) {
-  await execa.command("src/build.sh", { shell: true });
+  console.log(process.cwd())
+
+  await execa.command(process.cwd() + "/src/build.sh", { shell: true });
 
   const lambda = new Lambda({
     files,
