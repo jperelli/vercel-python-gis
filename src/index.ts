@@ -12,7 +12,7 @@ export async function build({
 }: BuildOptions) {
   console.log("installing haskell stack tool");
 
-  await execa.command("./build.sh", { shell: true });
+  await execa.command("src/build.sh", { shell: true });
 
   const lambda = new Lambda({
     files,
