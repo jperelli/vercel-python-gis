@@ -11,8 +11,6 @@ export async function build({
   meta = {},
   config = {},
 }: BuildOptions) {
-  console.log(process.cwd(), __dirname);
-
   await execa.command(path.resolve(__dirname, "../src/build.sh"), { shell: true });
 
   const lambda = new Lambda({
