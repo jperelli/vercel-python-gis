@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@vercel/build-utils": "^2.6.0",
-    "execa": "^6.1.0",
+    "execa": "^5.0.0",
     "fs-extra": "^10.0.1"
   }
 }
