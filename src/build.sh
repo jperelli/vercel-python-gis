@@ -1,40 +1,47 @@
-yum repolist
-cat /etc/os-release
-amazon-linux-extras install epel -y
-yum install -y geos proj gdal
+#!/bin/sh
 
-# Install GEOS
-# wget http://download.osgeo.org/geos/geos-3.4.2.tar.bz2
-# tar xjf geos-3.4.2.tar.bz2
-# cd geos-3.4.2
-# ./configure
-# make
-# sudo make install
-# cd ..
+# files available
+# ./files/libjbig.so.2.0
+# ./files/libjpeg.so.62.3.0
+# ./files/libtiff.so.5.2.0
+# ./files/libgeos.so.3.10.3
+# ./files/libgdal.so.29.0.3
+# ./files/libproj.so.22.2.1
+# ./files/libsqlite3.so.0.8.6
 
-# # Install PROJ.4
-# wget http://download.osgeo.org/proj/proj-4.9.1.tar.gz
-# wget http://download.osgeo.org/proj/proj-datumgrid-1.5.tar.gz
-# tar xzf proj-4.9.1.tar.gz
-# cd proj-4.9.1/nad
-# tar xzf ../../proj-datumgrid-1.5.tar.gz
-# cd ..
-# ./configure
-# make
-# sudo make install
-# cd ..
+# files to create
+# /lib64/libjbig.so.2.0
+# /lib64/libjpeg.so.62.3.0
+# /lib64/libjpeg.so.62 -> libjpeg.so.62.3.0
+# /lib64/libtiff.so.5.2.0
+# /lib64/libtiff.so.5 -> libtiff.so.5.2.0
+# /lib64/libtiff.so -> libtiff.so.5.2.0
+# /usr/local/lib64/libgeos.so.3.10.3
+# /usr/local/lib64/libgeos.so -> libgeos.so.3.10.3
+# /usr/local/lib/libgdal.so.29.0.3
+# /usr/local/lib/libgdal.so.29 -> libgdal.so.29.0.3
+# /usr/local/lib/libgdal.so -> libgdal.so.29.0.3
+# /usr/local/lib/libproj.so.22.2.1
+# /usr/local/lib/libproj.so.22 -> libproj.so.22.2.1
+# /usr/local/lib/libproj.so -> libproj.so.22.2.1
+# /usr/local/lib/libsqlite3.so.0.8.6
+# /usr/local/lib/libsqlite3.so.0 -> libsqlite3.so.0.8.6
+# /usr/local/lib/libsqlite3.so -> libsqlite3.so.0.8.6
 
-# sudo yum-config-manager --enable epel
-# sudo yum -y update
-# ** All one command; copy from 'sudo' to 'automake'
-# sudo yum install make automake gcc gcc-c++ libcurl-devel proj-devel geos-devel autoconf automake gdal
-# cd /tmp
-# ** All one command; copy from 'curl' to 'zxf -'
-# curl -L http://download.osgeo.org/gdal/2.2.3/gdal-2.2.3.tar.gz | tar zxf -
-# cd gdal-2.2.3/
-# ./configure --prefix=/usr/local --without-python
-# ** next command will take a while on a t2.micro
-# make -j4
-# sudo make install
-# cd /usr/local
-# tar zcvf ~/gdal-2.2.3-amz1.tar.gz *
+cp ./files/libjbig.so.2.0 /lib64/libjbig.so.2.0
+cp ./files/libjpeg.so.62.3.0 /lib64/libjpeg.so.62.3.0
+ln -s /lib64/libjpeg.so.62.3.0 /lib64/libjpeg.so.62
+cp ./files/libtiff.so.5.2.0 /lib64/libtiff.so.5.2.0
+ln -s /lib64/libtiff.so.5.2.0 /lib64/libtiff.so.5
+ln -s /lib64/libtiff.so.5.2.0 /lib64/libtiff.so
+cp ./files/libgeos.so.3.10.3 /usr/local/lib64/libgeos.so.3.10.3
+ln -s /usr/local/lib64/libgeos.so.3.10.3 /usr/local/lib64/libgeos.so
+cp ./files/libgdal.so.29.0.3 /usr/local/lib/libgdal.so.29.0.3
+ln -s /usr/local/lib/libgdal.so.29.0.3 /usr/local/lib/libgdal.so.29
+ln -s /usr/local/lib/libgdal.so.29.0.3 /usr/local/lib/libgdal.so
+cp ./files/libproj.so.22.2.1 /usr/local/lib/libproj.so.22.2.1
+ln -s /usr/local/lib/libproj.so.22.2.1 /usr/local/lib/libproj.so.22
+ln -s /usr/local/lib/libproj.so.22.2.1 /usr/local/lib/libproj.so
+cp ./files/libsqlite3.so.0.8.6 /usr/local/lib/libsqlite3.so.0.8.6
+ln -s /usr/local/lib/libsqlite3.so.0.8.6 /usr/local/lib/libsqlite3.so.0
+ln -s /usr/local/lib/libsqlite3.so.0.8.6 /usr/local/lib/libsqlite3.so
