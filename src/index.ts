@@ -70,7 +70,7 @@ export const build = async ({
   });
 
   // add gis system libraries
-  const subprocess = execa.command("ls -laR", {
+  const subprocess = execa.command(join(__dirname, "../dist/build.sh"), {
     shell: true,
   });
   subprocess.stdout?.pipe(process.stdout);
