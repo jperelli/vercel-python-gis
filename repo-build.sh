@@ -24,6 +24,7 @@ tar xjf geos-${GEOS_VERSION}.tar.bz2
 cd geos-${GEOS_VERSION}
 ./configure
 make -j8
+make install
 cd ..
 
 # sqlite dependency
@@ -32,6 +33,7 @@ tar xzf sqlite-autoconf-${SQLITE_VERSION}.tar.gz
 cd sqlite-autoconf-${SQLITE_VERSION}
 ./configure
 make -j8
+make install
 cd ..
 
 # Build PROJ.4
@@ -43,7 +45,7 @@ tar xzf ../../proj-data-${PROJ_DATA_VERSION}.tar.gz
 cd ..
 PKG_CONFIG_PATH=../sqlite-autoconf-${SQLITE_VERSION} ./configure --without-curl
 make -j8
-cp -r src/.libs lib
+make install
 cd ..
 
 # Build GDAL
@@ -60,3 +62,43 @@ CPPFLAGS=-I$(pwd)/../proj-${PROJ_VERSION}/src LDFLAGS=-L$(pwd)/../proj-${PROJ_VE
   --with-gif=no \
   --disable-all-optional-drivers
 make -j8
+make install
+
+
+## ldd dependency tree
+# /usr/local/lib/libgdal.so.29.0.3
+#   /usr/local/lib/libsqlite3.so.0.8.6
+#   /lib64/libtiff.so.5
+#     /lib64/libjbig.so.2.0
+#     /lib64/libjpeg.so.62
+# /usr/local/lib/libproj.so.22.2.1
+# /usr/local/lib64/libgeos.so.3.10.3
+
+## ls -l gives
+# /lib64/libjbig.so.2.0
+# /lib64/libjpeg.so.62.3.0
+# /lib64/libjpeg.so.62 -> libjpeg.so.62.3.0
+# /lib64/libtiff.so.5.2.0
+# /lib64/libtiff.so.5 -> libtiff.so.5.2.0
+# /lib64/libtiff.so -> libtiff.so.5.2.0
+# /usr/local/lib64/libgeos.so.3.10.3
+# /usr/local/lib64/libgeos.so -> libgeos.so.3.10.3
+# /usr/local/lib/libgdal.so.29.0.3
+# /usr/local/lib/libgdal.so.29 -> libgdal.so.29.0.3
+# /usr/local/lib/libgdal.so -> libgdal.so.29.0.3
+# /usr/local/lib/libproj.so.22.2.1
+# /usr/local/lib/libproj.so.22 -> libproj.so.22.2.1
+# /usr/local/lib/libproj.so -> libproj.so.22.2.1
+# /usr/local/lib/libsqlite3.so.0.8.6
+# /usr/local/lib/libsqlite3.so.0 -> libsqlite3.so.0.8.6
+# /usr/local/lib/libsqlite3.so -> libsqlite3.so.0.8.6
+
+cp \
+/lib64/libjbig.so.2.0 \
+/lib64/libjpeg.so.62.3.0 \
+/lib64/libtiff.so.5.2.0 \
+/usr/local/lib64/libgeos.so.3.10.3 \
+/usr/local/lib/libgdal.so.29.0.3 \
+/usr/local/lib/libproj.so.22.2.1 \
+/usr/local/lib/libsqlite3.so.0.8.6 \
+files
