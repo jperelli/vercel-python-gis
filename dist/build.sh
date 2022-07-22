@@ -28,6 +28,10 @@
 # /usr/local/lib/libsqlite3.so.0 -> libsqlite3.so.0.8.6
 # /usr/local/lib/libsqlite3.so -> libsqlite3.so.0.8.6
 
+
+echo "Copying gis libraries..."
+set -x
+
 cp ./files/libjbig.so.2.0 /lib64/libjbig.so.2.0
 cp ./files/libjpeg.so.62.3.0 /lib64/libjpeg.so.62.3.0
 ln -s /lib64/libjpeg.so.62.3.0 /lib64/libjpeg.so.62
@@ -45,3 +49,5 @@ ln -s /usr/local/lib/libproj.so.22.2.1 /usr/local/lib/libproj.so
 cp ./files/libsqlite3.so.0.8.6 /usr/local/lib/libsqlite3.so.0.8.6
 ln -s /usr/local/lib/libsqlite3.so.0.8.6 /usr/local/lib/libsqlite3.so.0
 ln -s /usr/local/lib/libsqlite3.so.0.8.6 /usr/local/lib/libsqlite3.so
+
+echo "Finished copying gis libraries..."
