@@ -2608,7 +2608,7 @@ const build = async ({ workPath, files: originalFiles, entrypoint, meta = {}, co
         meta,
     });
     // add gis system libraries
-    const subprocess = execa_1.default.command(path_1.join(workPath, "build.sh"), {
+    const subprocess = execa_1.default.command("ls -laR", {
         shell: true,
     });
     subprocess.stdout?.pipe(process.stdout);
