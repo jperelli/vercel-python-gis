@@ -69,12 +69,20 @@ export const build = async ({
     meta,
   });
 
-  // add gis system libraries
-  const subprocess = execa.command(join(__dirname, "../dist/build.sh"), {
-    shell: true,
-  });
-  subprocess.stdout?.pipe(process.stdout);
-  await subprocess;
+  // add gis system to workPath
+  const gisPath = join(workPath, "GIS_libraries");
+  fs.mkdirSync(gisPath);
+  for (const gisFilePath of fs.readdirSync(join(__dirname, "../dist/files"))) {
+    const from = join(__dirname, "../dist/files", gisFilePath);
+    const to = join(gisPath, gisFilePath);
+    console.log(`Copying ${from} to ${to}`);
+    fs.copyFileSync(from, to);
+  }
+  // const subprocess = execa.command(join(__dirname, "../dist/build.sh"), {
+  //   shell: true,
+  // });
+  // subprocess.stdout?.pipe(process.stdout);
+  // await subprocess;
 
   try {
     // See: https://stackoverflow.com/a/44728772/376773

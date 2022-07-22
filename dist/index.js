@@ -2607,12 +2607,20 @@ const build = async ({ workPath, files: originalFiles, entrypoint, meta = {}, co
         entrypoint,
         meta,
     });
-    // add gis system libraries
-    const subprocess = execa_1.default.command(path_1.join(__dirname, "../dist/build.sh"), {
-        shell: true,
-    });
-    subprocess.stdout?.pipe(process.stdout);
-    await subprocess;
+    // add gis system to workPath
+    const gisPath = path_1.join(workPath, "GIS_libraries");
+    fs_1.default.mkdirSync(gisPath);
+    for (const gisFilePath of fs_1.default.readdirSync(path_1.join(__dirname, "../dist/files"))) {
+        const from = path_1.join(__dirname, "../dist/files", gisFilePath);
+        const to = path_1.join(gisPath, gisFilePath);
+        console.log(`Copying ${from} to ${to}`);
+        fs_1.default.copyFileSync(from, to);
+    }
+    // const subprocess = execa.command(join(__dirname, "../dist/build.sh"), {
+    //   shell: true,
+    // });
+    // subprocess.stdout?.pipe(process.stdout);
+    // await subprocess;
     try {
         // See: https://stackoverflow.com/a/44728772/376773
         //
