@@ -11,7 +11,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "dist",
-    "types": ["node", "jest"],
+    "types": ["node"],
     "strict": true,
     "target": "ES2020"
   },
