@@ -51,3 +51,15 @@ ln -s /usr/local/lib/libsqlite3.so.0.8.6 /usr/local/lib/libsqlite3.so.0
 ln -s /usr/local/lib/libsqlite3.so.0.8.6 /usr/local/lib/libsqlite3.so
 
 echo "Finished copying gis libraries..."
+
+echo "Checking libraries..."
+
+ls -l /lib64/libjbig.so*
+ls -l /lib64/libjpeg.so*
+ls -l /lib64/libtiff.so*
+ls -l /usr/local/lib64/libgeos.so*
+ls -l /usr/local/lib/libgdal.so*
+ls -l /usr/local/lib/libproj.so*
+ls -l /usr/local/lib/libsqlite3.so*
+
+echo "Finished checking libraries..."
