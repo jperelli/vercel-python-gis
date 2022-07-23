@@ -6,6 +6,29 @@ from importlib import util
 from http.server import BaseHTTPRequestHandler
 import os
 
+# copy gis libraries to /usr/local/lib
+GIS_SYSLIBPATH = '/usr/local/lib'
+GIS_LOCALLIBPATH = './GIS_libraries'
+GIS_LIBNAMES = [
+    'libgdal.so.29.0.3',
+    'libgeos_c.so.1.16.1',
+    'libgeos.so.3.10.3',
+    'libjbig.so.2.0',
+    'libjpeg.so.62.3.0',
+    'libproj.so.22.2.1',
+    'libsqlite3.so.0.8.6',
+    'libtiff.so.5.2.0',
+]
+if not os.path.exists(GIS_SYSLIBPATH + '/' + GIS_LIBNAMES[0]):
+    for libname in GIS_LIBNAMES:
+        print('Moving ' + libname + ' to ' + GIS_SYSLIBPATH)
+        # copy lib with full version number
+        os.system('mv ' + GIS_LOCALLIBPATH + '/' + libname + ' ' + GIS_SYSLIBPATH)
+        # make link with short version number
+        os.system('ln -s ' + GIS_SYSLIBPATH + '/' + libname + ' ' + GIS_SYSLIBPATH + '/' + '.'.join(libname.split('.')[:3]))
+        # make link without version number
+        os.system('ln -s ' + GIS_SYSLIBPATH + '/' + libname + ' ' + GIS_SYSLIBPATH + '/' + '.'.join(libname.split('.')[:2]))
+
 # Import relative path https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly
 __vc_spec = util.spec_from_file_location("__VC_HANDLER_MODULE_NAME", "./__VC_HANDLER_ENTRYPOINT")
 __vc_module = util.module_from_spec(__vc_spec)

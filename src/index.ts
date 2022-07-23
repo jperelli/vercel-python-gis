@@ -217,9 +217,7 @@ export const build = async ({
     files: await glob("**", globOptions),
     handler: `${handlerPyFilename}.vc_handler`,
     runtime: pythonVersion.runtime,
-    environment: {
-      LD_LIBRARY_PATH: gisPath,
-    },
+    environment: {},
   });
 
   return { output: lambda };
