@@ -71,6 +71,7 @@ make install
 #   /lib64/libtiff.so.5
 #     /lib64/libjbig.so.2.0
 #     /lib64/libjpeg.so.62
+#   /usr/local/lib64/libgeos_c.so.1
 # /usr/local/lib/libproj.so.22.2.1
 # /usr/local/lib64/libgeos.so.3.10.3
 
@@ -105,6 +106,22 @@ cp \
 files
 
 for f in files/*; do strip --strip-debug $f -o stripped-$f; done
+
+( cd stripped-files && \
+  ln -s libjpeg.so.62.3.0 libjpeg.so.62 && \
+  ln -s libjpeg.so.62.3.0 libjpeg.so && \
+  ln -s libtiff.so.5.2.0 libtiff.so.5 && \
+  ln -s libtiff.so.5.2.0 libtiff.so && \
+  ln -s libgeos.so.3.10.3 libgeos.so.3 && \
+  ln -s libgeos.so.3.10.3 libgeos.so && \
+  ln -s libgeos_c.so.1.16.1 libgeos_c.so.1 && \
+  ln -s libgeos_c.so.1.16.1 libgeos_c.so && \
+  ln -s libgdal.so.29.0.3 libgdal.so.29 && \
+  ln -s libgdal.so.29.0.3 libgdal.so && \
+  ln -s libproj.so.22.2.1 libproj.so.22 && \
+  ln -s libproj.so.22.2.1 libproj.so && \
+  ln -s libsqlite3.so.0.8.6 libsqlite3.so.0 && \
+  ln -s libsqlite3.so.0.8.6 libsqlite3.so )
 
 du -sh stripped-files/* | sort -hr
 

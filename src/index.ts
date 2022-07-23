@@ -77,19 +77,8 @@ export const build = async ({
     const to = join(gisPath, gisFilePath);
 
     // copy file to workPath
-    console.log(`Processing ${gisFilePath}`);
-    console.log(`  - copying ${from} to ${to}`);
+    console.log(`Copying ${from} to ${to}`);
     fs.copyFileSync(from, to);
-
-    // symlink versions of the file in the workPath
-    //  with one version
-    const newFilePath = /.*\.so\.\d+/.exec(to)![0];
-    console.log(`  - creating symlink ${newFilePath}`);
-    fs.symlinkSync(to, join(gisPath, newFilePath));
-    // with no version
-    const noVersionFilePath = /.*\.so/.exec(to)![0];
-    console.log(`  - creating symlink ${noVersionFilePath}`);
-    fs.symlinkSync(to, join(gisPath, noVersionFilePath));
   }
   // const subprocess = execa.command(join(__dirname, "../dist/build.sh"), {
   //   shell: true,
