@@ -2607,7 +2607,10 @@ const build = async ({ workPath, files: originalFiles, entrypoint, meta = {}, co
         entrypoint,
         meta,
     });
-    // add gis system to workPath
+    // add gis system to correct lib directory
+    // this directory will be copied to the lambda
+    // aws lambda will find .so libraries in this directory
+    // see LD_LIBRARY_PATH here https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
     const gisPath = path_1.join(workPath, "lib");
     fs_1.default.mkdirSync(gisPath);
     for (const gisFilePath of fs_1.default.readdirSync(path_1.join(__dirname, "../dist/files"))) {
@@ -2617,11 +2620,6 @@ const build = async ({ workPath, files: originalFiles, entrypoint, meta = {}, co
         console.log(`Copying ${from} to ${to}`);
         fs_1.default.copyFileSync(from, to);
     }
-    // const subprocess = execa.command(join(__dirname, "../dist/build.sh"), {
-    //   shell: true,
-    // });
-    // subprocess.stdout?.pipe(process.stdout);
-    // await subprocess;
     try {
         // See: https://stackoverflow.com/a/44728772/376773
         //
