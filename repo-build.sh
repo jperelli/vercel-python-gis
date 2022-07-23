@@ -97,8 +97,15 @@ cp \
 /lib64/libjbig.so.2.0 \
 /lib64/libjpeg.so.62.3.0 \
 /lib64/libtiff.so.5.2.0 \
+/usr/local/lib64/libgeos_c.so.1.16.1 \
 /usr/local/lib64/libgeos.so.3.10.3 \
 /usr/local/lib/libgdal.so.29.0.3 \
 /usr/local/lib/libproj.so.22.2.1 \
 /usr/local/lib/libsqlite3.so.0.8.6 \
 files
+
+for f in files/*; do strip --strip-debug $f -o stripped-$f; done
+
+du -sh stripped-files/* | sort -hr
+
+du -sh stripped-files
