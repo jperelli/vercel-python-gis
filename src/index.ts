@@ -83,11 +83,6 @@ export const build = async ({
     console.log(`Copying ${from} to ${to}`);
     fs.copyFileSync(from, to);
   }
-  // const subprocess = execa.command(join(__dirname, "../dist/build.sh"), {
-  //   shell: true,
-  // });
-  // subprocess.stdout?.pipe(process.stdout);
-  // await subprocess;
 
   try {
     // See: https://stackoverflow.com/a/44728772/376773

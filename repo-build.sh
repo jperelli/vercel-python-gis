@@ -94,8 +94,8 @@ make install
 # /usr/local/lib/libsqlite3.so.0 -> libsqlite3.so.0.8.6
 # /usr/local/lib/libsqlite3.so -> libsqlite3.so.0.8.6
 
-cp \
-/lib64/libjbig.so.2.0 \
+# copy installed relevant libraries to outside of the container
+cp /lib64/libjbig.so.2.0 \
 /lib64/libjpeg.so.62.3.0 \
 /lib64/libtiff.so.5.2.0 \
 /usr/local/lib64/libgeos_c.so.1.16.1 \
@@ -105,23 +105,17 @@ cp \
 /usr/local/lib/libsqlite3.so.0.8.6 \
 files
 
-for f in files/*; do strip --strip-debug $f -o stripped-$f; done
+# remove versions so that LD_LIBRARY_PATH find them
+mv files/libgdal.so.29.0.3    files/libgdal.so
+mv files/libgeos_c.so.1.16.1  files/libgeos_c.so.1
+mv files/libgeos.so.3.10.3    files/libgeos.so.3.10.3
+mv files/libjbig.so.2.0       files/libjbig.so.2.0
+mv files/libjpeg.so.62.3.0    files/libjpeg.so.62
+mv files/libproj.so.22.2.1    files/libproj.so.22
+mv files/libsqlite3.so.0.8.6  files/libsqlite3.so.0.8.6
+mv files/libtiff.so.5.2.0     files/libtiff.so.5
 
-( cd stripped-files && \
-  ln -s libjpeg.so.62.3.0 libjpeg.so.62 && \
-  ln -s libjpeg.so.62.3.0 libjpeg.so && \
-  ln -s libtiff.so.5.2.0 libtiff.so.5 && \
-  ln -s libtiff.so.5.2.0 libtiff.so && \
-  ln -s libgeos.so.3.10.3 libgeos.so.3 && \
-  ln -s libgeos.so.3.10.3 libgeos.so && \
-  ln -s libgeos_c.so.1.16.1 libgeos_c.so.1 && \
-  ln -s libgeos_c.so.1.16.1 libgeos_c.so && \
-  ln -s libgdal.so.29.0.3 libgdal.so.29 && \
-  ln -s libgdal.so.29.0.3 libgdal.so && \
-  ln -s libproj.so.22.2.1 libproj.so.22 && \
-  ln -s libproj.so.22.2.1 libproj.so && \
-  ln -s libsqlite3.so.0.8.6 libsqlite3.so.0 && \
-  ln -s libsqlite3.so.0.8.6 libsqlite3.so )
+for f in files/*; do strip --strip-debug $f -o stripped-$f; done
 
 du -sh stripped-files/* | sort -hr
 
