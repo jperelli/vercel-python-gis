@@ -70,7 +70,7 @@ export const build = async ({
   });
 
   // add gis system to workPath
-  const gisPath = join(workPath, "GIS_libraries");
+  const gisPath = join(workPath, "lib");
   fs.mkdirSync(gisPath);
   for (const gisFilePath of fs.readdirSync(join(__dirname, "../dist/files"))) {
     const from = join(__dirname, "../dist/files", gisFilePath);

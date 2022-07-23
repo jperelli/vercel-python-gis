@@ -2608,7 +2608,7 @@ const build = async ({ workPath, files: originalFiles, entrypoint, meta = {}, co
         meta,
     });
     // add gis system to workPath
-    const gisPath = path_1.join(workPath, "GIS_libraries");
+    const gisPath = path_1.join(workPath, "lib");
     fs_1.default.mkdirSync(gisPath);
     for (const gisFilePath of fs_1.default.readdirSync(path_1.join(__dirname, "../dist/files"))) {
         const from = path_1.join(__dirname, "../dist/files", gisFilePath);
