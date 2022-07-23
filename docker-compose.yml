@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  builder:
+    image: public.ecr.aws/lambda/python:3.9
+    working_dir: /build
+    volumes:
+      - ./temp:/build
