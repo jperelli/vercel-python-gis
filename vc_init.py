@@ -5,7 +5,6 @@ import inspect
 from importlib import util
 from http.server import BaseHTTPRequestHandler
 
-
 # Import relative path https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly
 __vc_spec = util.spec_from_file_location("__VC_HANDLER_MODULE_NAME", "./__VC_HANDLER_ENTRYPOINT")
 __vc_module = util.module_from_spec(__vc_spec)
