@@ -69,7 +69,10 @@ export const build = async ({
     meta,
   });
 
-  // add gis system to workPath
+  // add gis system to correct lib directory
+  // this directory will be copied to the lambda
+  // aws lambda will find .so libraries in this directory
+  // see LD_LIBRARY_PATH here https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
   const gisPath = join(workPath, "lib");
   fs.mkdirSync(gisPath);
   for (const gisFilePath of fs.readdirSync(join(__dirname, "../dist/files"))) {
