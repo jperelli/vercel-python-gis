@@ -2739,7 +2739,9 @@ const build = async ({ workPath, files: originalFiles, entrypoint, meta = {}, co
         files: await build_utils_1.glob("**", globOptions),
         handler: `${handlerPyFilename}.vc_handler`,
         runtime: pythonVersion.runtime,
-        environment: {},
+        environment: {
+            LD_LIBRARY_PATH: gisPath,
+        },
     });
     return { output: lambda };
 };
