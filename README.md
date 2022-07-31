@@ -20,11 +20,9 @@ vercel.json
 in /vercel.json add this runtime
 ```json
 {
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "api/index.py"
-    }
+  "rewrites": [
+    { "source": "/static", "destination": "/static" },
+    { "source": "/(.*)", "destination": "api/index.py" }
   ],
   "functions": {
     "api/index.py": {
